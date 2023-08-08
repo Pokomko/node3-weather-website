@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather</title>
+    <link rel="icon" href="../img/icon.png">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>    
+
+<body class="body-index">
+    <div>
+        {{>header}}
+        
+        <p style="font-size: 20px;">Site fo weather forecast</p>
+        
+        <form>
+            <input placeholder="Location">
+            <button>Search</button>
+        </form>
+
+        <p id="message-1" style="font-size: 25px;color: rgb(98, 98, 192); white-space: pre-line;"></p>
+        <p id="message-3" class="p-error"></p>
+    </div>
+    {{>footer}}
+
+    <script src="/js/script.js"></script>
+</body>
+
+</html>
