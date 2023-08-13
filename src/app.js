@@ -54,11 +54,12 @@ app.get('/weather', (req, res) => {
             return res.send({error})
         }
     
-        weather(latitude, longtitude, (error, weatherdata) => {
+        weather(latitude, longtitude, (error, wdescriptions ,weatherdata) => {
             if (error) {
                 return res.send({error})
             };
             res.send({
+                wdescriptions: wdescriptions,
                 forecast: weatherdata,
                 location,
                 address: req.query.address,
@@ -86,6 +87,26 @@ app.get('/help/*', (req, res) => {
         name: 'Max Kiselyov',
     });
 });
+
+app.get('/test', (req, res) => { 
+    geocode(req.query.address, (error, { latitude, longtitude, location } = {}) => {
+        if (error) {
+            return res.send({error})
+        }
+    
+        weather(latitude, longtitude, (error, weatherdata) => {
+            if (error) {
+                return res.send({error})
+            };
+            res.send({
+                forecast: weatherdata,
+                location,
+                address: req.query.address,
+            });
+
+        });
+    });
+})
 
 app.get('*', (req, res) => {
     res.render('404', {

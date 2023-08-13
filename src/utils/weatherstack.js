@@ -8,8 +8,9 @@ const weather = (latitude, longtitude, callback) => {
         } else if (body.error) {
             callback(body.error, undefined)
         } else {
-            callback(undefined, body.current.weather_descriptions[0] + ' It is currently ' + body.current.temperature + ' degress out. There is a ' + body.current.feelslike + ' degress feelslike.')
+            callback(undefined, body.current.weather_descriptions[0], '. It is currently ' + body.current.temperature + ' degress out. There is a ' + body.current.feelslike + ' degress feelslike. Cloudcover: '+ body.current.cloudcover)
             };
+        //callback(undefined, body)
         }    
     );
 }
