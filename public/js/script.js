@@ -2,7 +2,7 @@ const weatherForm = document.querySelector('form');
 const search = document.querySelector('input');
 const messageOne = document.querySelector('#message-1');
 const messageTwo = document.querySelector('#message-3');
-let img = document.createElement('img');
+const weatherIcon = document.querySelectorAll('.icon_weather'); 
 
 messageOne.textContent = '';
 messageTwo.textContent = '';
@@ -13,27 +13,39 @@ weatherForm.addEventListener('submit', (e) => {
     messageOne.textContent = 'Loading...';
     messageTwo.textContent = '';
     fetch('/weather?address=' + location).then((response) => {
-    response.json().then((data) => {
-        if (data.error) {
-            messageOne.textContent = '';
-            return messageTwo.textContent = data.error;
-        };
-        img.src = undefined;
-        switch (data.wdescriptions) {
-            case 'Sunny':
-                img.src = '../img/sun.png';
-                document.querySelector('body').appendChild(img);
-                break;
-            case 'Clear':
-                img.src = '../img/desert.png';
-                document.querySelector('body').appendChild(img);
-                break;
-            default:
-                break;
-        }
-        messageOne.textContent = data.wdescriptions + '';
-        messageOne.textContent += data.forecast + '. ';
-        messageOne.textContent += data.location + '. ';
+        weatherIcon.forEach((icon) => {icon.style.display = "none";});
+        response.json().then((data) => {
+            console.log(weatherIcon);
+            console.log(data.wdescriptions);
+            if (data.error) {
+                messageOne.textContent = '';
+                return messageTwo.textContent = data.error;
+            };
+            switch (data.wdescriptions) {
+                case 'Sunny':
+                case 'Clear':
+                    const sun = document.querySelector('.sun');
+                    sun.style.display = "block";
+                    break;
+                case 'Cloudy':
+                    const cloud = document.querySelector('.cloud');
+                    cloud.style.display = "block";
+                    break;
+                case 'Partly cloudy':
+                    const partlyCloud = document.querySelector('.partly_cloud');
+                    partlyCloud.style.display = "block";
+                    break;
+                case 'Snow':
+                case 'Heavy snow':
+                    const snow = document.querySelector('.snow');
+                    snow.style.display = "block";
+                    break;
+                default:
+                    break;
+            }
+            messageOne.textContent = data.wdescriptions + '';
+            messageOne.textContent += data.forecast + '. ';
+            messageOne.textContent += data.location + '. ';
+        });
     });
-});
 })

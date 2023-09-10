@@ -80,3 +80,15 @@ button {
     color: white;
     padding: 6px;
 }
+
+.icon_wrap {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.icon_weather {
+    margin-right: 25px;
+
+}
+
